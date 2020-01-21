@@ -9,9 +9,24 @@ class CashRegister
 
     def add_item(item, price, quantity = 1)
         self.total += price * quantity
-        quantity.times { self.items << item }
-        self.last_price = [item, price, quantity]
+        quantity.times { items << item }
+        self.last_price = price * quantity
     end
+
+    # def add_item(item, price, quantity = 1)
+    #     @last_price = price
+    #     @total += price * quantity
+
+    #     if quantity > 1
+    #         i = 0
+    #         while i < quantity
+    #             @items << item
+    #             i += 1
+    #         end
+    #     else
+    #         @items << item
+    #     end
+    # end
 
     def apply_discount
         if @discount > 0
@@ -24,10 +39,7 @@ class CashRegister
     end
 
     def void_last_transaction
-        self.total -= self.last_price[1] * self.last_price[2]
-        self.last_price[2].times do
-        self.items.delete_at(self.items.index(self.last_price[0]) || self.items.count)
-        end
+        self.total -= self.last_price
     end
     
 end
